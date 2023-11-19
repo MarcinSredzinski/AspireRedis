@@ -2,7 +2,7 @@ using AspireRedis.Web;
 using AspireRedis.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.AddRedisOutputCache("cache");
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
 
