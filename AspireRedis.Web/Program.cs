@@ -1,5 +1,6 @@
 using AspireRedis.Web;
 using AspireRedis.Web.Components;
+using AspireRedis.Client.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddRedisOutputCache("cache");
@@ -8,7 +9,8 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddOutputCache();
 
@@ -22,13 +24,13 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
-
 app.UseAntiforgery();
-
 app.UseOutputCache();
 
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+    .AddInteractiveServerRenderMode()
+    .AddInteractiveWebAssemblyRenderMode()
+    .AddAdditionalAssemblies(typeof(Counter).Assembly);
     
 app.MapDefaultEndpoints();
 
